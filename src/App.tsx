@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ResearchLibrary from "./ResearchLibrary";
 import { Activity, Atom, BookOpen, BrainCircuit, FlaskConical, GraduationCap, Menu, Moon, Sun, Search, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 
 type Page = "Overview" | "AI Study Assistant" | "Research Library" | "Syllabus Explorer" | "Anatomy & Radiology" | "Question Bank";
@@ -28,7 +29,7 @@ export default function App(){
   </aside>
   {mobile&&<button className="backdrop" aria-label="Close navigation" onClick={()=>setMobile(false)}/>}
   <main className="main"><header className="topbar"><div className="crumb"><button className="menu" onClick={()=>setMobile(true)} aria-label="Open navigation"><Menu/></button>Workspace <span>/</span> <b>{active}</b></div><div className="actions"><label className="search"><Search size={16}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search anything…"/></label><button className="icon-btn" onClick={()=>setDark(!dark)} aria-label="Toggle theme">{dark?<Sun size={18}/>:<Moon size={18}/>}</button><div className="avatar">S</div></div></header>
-  <div className="content">{active==="Overview"?<>
+  <div className="content">{active==="Research Library"?<ResearchLibrary/>:active==="Overview"?<>
    <div className="welcome"><div><p className="eyebrow">✳ YOUR MEDICAL LEARNING SPACE</p><h1>Welcome to your workspace<span>.</span></h1><p className="muted">A little progress every day adds up to something extraordinary.</p></div><button className="primary" onClick={()=>go("AI Study Assistant")}>＋ Start a study session</button></div>
    <section className="hero"><div className="hero-copy"><p className="eyebrow">✧ YOUR PERSONAL STUDY COMPANION</p><h2>Understand more.<br/><em>Memorise less.</em></h2><p>Build clinical understanding, strengthen your fundamentals, and learn to think like a doctor — one concept at a time.</p><button className="hero-btn" onClick={()=>go("AI Study Assistant")}>Explore AI study assistant <ArrowRight size={16}/></button><small><ShieldCheck size={14}/> Designed for learning, not clinical decision-making</small></div><div className="hero-visual"><div className="orb"><Activity size={48}/><b>ETIOLOGY</b><small>LEARN · REASON · DISCOVER</small></div><div className="float f1"><BrainCircuit/></div><div className="float f2"><Atom/></div><div className="float f3"><FlaskConical/></div></div></section>
    <section className="section"><div className="section-head"><div><h3>Where would you like to begin?</h3><p>Pick up where curiosity takes you.</p></div><span>YOUR STUDY TOOLS ↗</span></div><div className="tools">{tools.map(t=><button className="tool" key={t.name} onClick={()=>go(t.page)}><div className="tool-icon"><t.icon size={21}/></div><b>{t.name}</b><p>{t.detail}</p><ArrowRight className="arrow" size={17}/></button>)}</div></section>
