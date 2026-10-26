@@ -20,7 +20,7 @@ type EuropePmcArticle = {
 type SearchResponse = { hitCount?: number; resultList?: { result?: EuropePmcArticle[] } };
 
 const API = "https://www.ebi.ac.uk/europepmc/webservices/rest/search";
-const STOP_WORDS = new Set(["find","recent","latest","papers","paper","studies","study","research","about","on","in","for","of","and","or","the","a","an","with","including","patients","patient","without","among","from","over","last","past","years","year","show","search","related","material"]);
+const STOP_WORDS = new Set(["find","recent","latest","papers","paper","studies","study","research","about","on","in","for","of","and","or","the","a","an","with","including","patients","patient","without","among","from","over","last","past","years","year","show","search","related","material","systematic","systematically","review","reviews","clinical","trial","trials","type","types","patients","patient"]);
 const DEFAULT_PROMPT = "Find recent systematic reviews and clinical trials on SGLT2 inhibitors in heart failure, including patients without diabetes.";
 
 function buildSearchQuery(prompt: string, years: string, studyType: string, openAccessOnly: boolean) {
