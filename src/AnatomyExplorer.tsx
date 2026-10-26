@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { CSSProperties } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Activity, Bone, Brain, Check, ChevronDown, CircleHelp, Eye, EyeOff, HeartPulse, Layers3, RotateCcw, ScanLine, ShieldCheck, Wind } from "lucide-react";
+import { Activity, Bone, Brain, Check, ChevronDown, CircleHelp, Eye, EyeOff, HeartPulse, Layers3, RotateCcw, ScanLine, Search, ShieldCheck, Wind } from "lucide-react";
 import "./AnatomyExplorer.css";
 
 type System = "All systems" | "Skeletal" | "Nervous" | "Respiratory" | "Cardiovascular" | "Digestive";
@@ -66,6 +66,7 @@ export default function AnatomyExplorer() {
   <div className="anatomy-workspace">
    <aside className="anatomy-sidebar">
     <div className="anatomy-panel-title"><Layers3 size={16}/>Explore systems</div>
+    <label className="anatomy-search"><Search size={14}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Find a structure"/></label>
     <div className="system-list">{systems.map(item=><button key={item} className={system===item?"system-option active":"system-option"} onClick={()=>pickSystem(item)}><span className={"system-dot dot-"+item.toLowerCase().replace(" ","-")}/><span>{item}</span>{system===item&&<Check size={14}/>}</button>)}</div>
     <div className="anatomy-divider"/>
     <div className="anatomy-panel-title"><Eye size={16}/>Visible layers</div>
