@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import { BookOpen, ExternalLink, FileText, Filter, LoaderCircle, Search, ShieldCheck } from "lucide-react";
 
 type EuropePmcArticle = {
