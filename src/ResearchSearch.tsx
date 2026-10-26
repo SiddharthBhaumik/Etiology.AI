@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { BookOpen, ExternalLink, FileText, Filter, LoaderCircle, Search, ShieldCheck } from "lucide-react";
+import AIResearchOverview from "./AIResearchOverview";
 
 type EuropePmcArticle = {
   id: string;
@@ -119,6 +120,19 @@ export default function ResearchSearch() {
 
       {articles.length > 0 && <>
         <div className="research-results-summary"><div><b>{hitCount?.toLocaleString() ?? articles.length}</b> matching records <span>· showing {articles.length}</span></div><a href={`https://europepmc.org/search?query=${encodeURIComponent(buildSearchQuery(prompt, years, studyType, openAccessOnly))}`} target="_blank" rel="noreferrer">Open search in Europe PMC <ExternalLink size={14} /></a></div>
+        <AIResearchOverview question={prompt} papers={articles.map((article) => ({
+          id: `${article.source ?? "src"}-${article.id}`,
+          title: article.title || "Untitled record",
+          authors: article.authorString,
+          journal: article.journalTitle,
+          year: article.pubYear || article.firstPublicationDate,
+          abstract: article.abstractText,
+          sourceUrl: articleLink(article),
+          doi: article.doi,
+          pmid: article.pmid,
+          publicationTypes: article.pubTypeList?.pubType ?? [],
+          textInspected: article.abstractText?.trim() ? "abstract" as const : "metadata" as const,
+        }))} />
         <div className="research-article-list">
           {articles.map((article, index) => {
             const types = article.pubTypeList?.pubType ?? [];
