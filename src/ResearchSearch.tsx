@@ -25,7 +25,7 @@ const DEFAULT_PROMPT = "Find recent systematic reviews and clinical trials on SG
 
 function buildSearchQuery(prompt: string, years: string, studyType: string, openAccessOnly: boolean) {
   // Keep this deterministic and transparent: no LLM is used to rewrite the student's question.
-  const clean = prompt.replace(/[?]/g, " ").replace(/\b(find|recent|latest|papers?|studies|research|about|show me|search for)\b/gi, " ").replace(/\s+/g, " ").trim();
+  const clean = prompt.replace(/[?]/g, " ").replace(/\bincluding patients without diabetes\b/gi, " ").replace(/\bincluding patients\b/gi, " ").replace(/\b(find|recent|latest|papers?|studies|research|about|show me|search for|systematic reviews?|clinical trials?)\b/gi, " ").replace(/\s+/g, " ").trim();
   const terms = clean.split(/\s+/).map((word) => word.replace(/^[^\w-]+|[^\w-]+$/g, "")).filter((word) => word.length > 2 && !STOP_WORDS.has(word.toLowerCase()));
   const unique = [...new Set(terms)];
   const textQuery = unique.length ? unique.map((word) => word.includes("-") ? word : word).join(" AND ") : clean;
