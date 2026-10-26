@@ -22,7 +22,7 @@ const systems: System[] = ["All systems","Skeletal","Nervous","Respiratory","Car
 function Shape({item, selected, onSelect}:{item:Structure;selected:boolean;onSelect:(id:string)=>void}) {
  return <mesh position={item.position} scale={item.scale} onClick={e=>{e.stopPropagation();onSelect(item.id)}} onPointerOver={()=>{document.body.style.cursor="pointer"}} onPointerOut={()=>{document.body.style.cursor="default"}} castShadow>
   <sphereGeometry args={[1,24,18]}/>
-  <meshStandardMaterial color={selected?"#7c8df2":item.color} roughness={.5} emissive={selected?"#3546a5":"#000000"} emissiveIntensity={selected?.25:0}/>
+  <meshStandardMaterial color={selected?"#7c8df2":item.color} roughness={.5} emissive={selected?"#3546a5":"#000000"} emissiveIntensity={selected ? 0.25 : 0}/>
  </mesh>;
 }
 function BoneSegment({position,scale,rotation=[0,0,0]}:{position:[number,number,number];scale:[number,number,number];rotation?:[number,number,number]}) {
