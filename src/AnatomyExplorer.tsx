@@ -33,7 +33,7 @@ function Body({selected,onSelect,organs,skeleton,system}:{selected:string;onSele
  return <group position={[0,-.12,0]}>
   <mesh position={[0,.45,-.12]} scale={[.67,.88,.28]}><capsuleGeometry args={[.48,.72,8,16]}/>{bodyMaterial}</mesh>
   <mesh position={[0,-.62,-.12]} scale={[.42,.28,.24]}><sphereGeometry args={[1,24,16]}/>{bodyMaterial}</mesh>
-  <mesh position={[0,1.78,-.1]} scale={[.31,.34,.25]}><sphereGeometry args={[1,24,16}/>{bodyMaterial}</mesh>
+  <mesh position={[0,1.78,-.1]} scale={[.31,.34,.25]}><sphereGeometry args={[1,24,16]}/>{bodyMaterial}</mesh>
   <mesh position={[0,1.38,-.1]} scale={[.12,.17,.13]}><cylinderGeometry args={[.1,.12,.35,16]}/>{bodyMaterial}</mesh>
   {[-1,1].map(side=><group key={side}>
    <mesh position={[side*.81,.43,-.13]} rotation={[0,0,side*-.16]}><capsuleGeometry args={[.13,.72,6,12]}/>{bodyMaterial}</mesh>
