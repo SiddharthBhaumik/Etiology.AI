@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { CSSProperties } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Activity, Bone, Brain, Check, ChevronDown, CircleHelp, Eye, EyeOff, HeartPulse, Layers3, RotateCcw, ScanLine, ShieldCheck, Wind } from "lucide-react";
@@ -31,9 +32,9 @@ function Body({selected,onSelect,organs,skeleton,system}:{selected:string;onSele
  const bodyMaterial = <meshStandardMaterial color="#aab7c8" transparent opacity={.2} roughness={.8}/>;
  return <group position={[0,-.12,0]}>
   <mesh position={[0,.45,-.12]} scale={[.67,.88,.28]}><capsuleGeometry args={[.48,.72,8,16]}/>{bodyMaterial}</mesh>
-  <mesh position={[0,-.62,-.12]} scale={[.42,.28,.24]}><sphereGeometry args={[1,24,16}/>{bodyMaterial}</mesh>
+  <mesh position={[0,-.62,-.12]} scale={[.42,.28,.24]}><sphereGeometry args={[1,24,16]}/>{bodyMaterial}</mesh>
   <mesh position={[0,1.78,-.1]} scale={[.31,.34,.25]}><sphereGeometry args={[1,24,16}/>{bodyMaterial}</mesh>
-  <mesh position={[0,1.38,-.1]} scale={[.12,.17,.13]}><cylinderGeometry args={[.1,.12,.35,16}/>{bodyMaterial}</mesh>
+  <mesh position={[0,1.38,-.1]} scale={[.12,.17,.13]}><cylinderGeometry args={[.1,.12,.35,16]}/>{bodyMaterial}</mesh>
   {[-1,1].map(side=><group key={side}>
    <mesh position={[side*.81,.43,-.13]} rotation={[0,0,side*-.16]}><capsuleGeometry args={[.13,.72,6,12]}/>{bodyMaterial}</mesh>
    <mesh position={[side*.94,-.28,-.13]}><capsuleGeometry args={[.095,.6,6,12]}/>{bodyMaterial}</mesh>
@@ -80,7 +81,7 @@ export default function AnatomyExplorer() {
    </div>
    <aside className={details?"anatomy-details":"anatomy-details collapsed"}>
     <div className="details-header"><div><p className="details-kicker">SELECTED STRUCTURE</p><h2>{selected.name}</h2></div><button aria-label="Toggle details" onClick={()=>setDetails(v=>!v)}><ChevronDown size={16}/></button></div>
-    {details&&<><span className="system-pill" style={{"--pill-color":selected.color} as React.CSSProperties}>{selected.system}</span>
+    {details&&<><span className="system-pill" style={{"--pill-color":selected.color} as CSSProperties}>{selected.system}</span>
      <div className="detail-illustration"><div className="detail-orb" style={{background:selected.color+"25",borderColor:selected.color+"80"}}>{selected.system==="Nervous"?<Brain size={38}/>:selected.system==="Cardiovascular"?<HeartPulse size={38}/>:selected.system==="Respiratory"?<Wind size={38}/>:selected.system==="Skeletal"?<Bone size={38}/>:<Activity size={38}/>}</div><span>ANATOMICAL OVERVIEW</span></div>
      <div className="detail-block"><h3>Location</h3><p>{selected.location}</p></div><div className="detail-block"><h3>Function</h3><p>{selected.function}</p></div>
      <div className="imaging-card"><div className="imaging-title"><ScanLine size={15}/><b>Radiology connection</b></div><p>{selected.imaging}</p><span>STUDY NOTE · VERIFY WITH STANDARD REFERENCES</span></div>
