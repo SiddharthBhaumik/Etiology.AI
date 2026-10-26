@@ -91,7 +91,6 @@ export default function AnatomyExplorer() {
      <button className="detail-quiz" onClick={()=>window.alert("Quick recall: "+selected.name+" — "+selected.function)}><Brain size={15}/> Quick recall <span>↗</span></button>
     </>}
    </aside>
-  </div>
   </div>}
   <div className="anatomy-footer"><span><i/> BUILT FOR MEDICAL LEARNING</span><span>{viewMode==="atlas"?"External model: Ana3D / Z-Anatomy · CC BY-SA 4.0; derived from BodyParts3D.":"Schematic preview only; not anatomically detailed."}</span></div>
  </section>;
