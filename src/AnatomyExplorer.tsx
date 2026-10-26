@@ -57,13 +57,15 @@ function Body({selected,onSelect,organs,skeleton,system}:{selected:string;onSele
  </group>;
 }
 export default function AnatomyExplorer() {
+ const [viewMode,setViewMode]=useState<"atlas"|"schematic">("atlas");
  const [system,setSystem]=useState<System>("All systems"),[selectedId,setSelectedId]=useState("heart"),[organs,setOrgans]=useState(true),[skeleton,setSkeleton]=useState(false),[details,setDetails]=useState(true),[query,setQuery]=useState("");
  const selected=structures.find(item=>item.id===selectedId)??structures[0];
  const filtered=structures.filter(item=>(system==="All systems"||item.system===system)&&(item.name.toLowerCase().includes(query.toLowerCase())||item.system.toLowerCase().includes(query.toLowerCase())));
  const pickSystem=(item:System)=>{setSystem(item);const next=structures.find(s=>item==="All systems"||s.system===item);if(next)setSelectedId(next.id);if(item==="Skeletal")setSkeleton(true)};
  return <section className="anatomy-explorer">
   <div className="anatomy-heading"><div><p className="eyebrow">INTERACTIVE LEARNING LAB</p><h1>Anatomy <span>&</span> Radiology</h1><p className="muted">Explore body systems in 3D, select a structure, and connect anatomy to imaging.</p></div><div className="anatomy-status"><i/> 3D EXPLORER <b/> LEARNING MODE</div></div>
-  <div className="anatomy-workspace">
+  <div className="anatomy-view-switch" role="tablist" aria-label="Anatomy model source"><button role="tab" aria-selected={viewMode==="atlas"} className={viewMode==="atlas"?"active":""} onClick={()=>setViewMode("atlas")}><Layers3 size={15}/> Real 3D atlas</button><button role="tab" aria-selected={viewMode==="schematic"} className={viewMode==="schematic"?"active":""} onClick={()=>setViewMode("schematic")}><Activity size={15}/> Schematic preview</button></div>
+  {viewMode==="atlas" ? <section className="external-atlas"><div className="external-atlas-head"><div><b>Interactive human anatomy atlas</b><p>Detailed, selectable anatomical structures from Ana3D’s Z-Anatomy atlas. This viewer is hosted by Ana3D.</p></div><a href="https://ana3d.app/en/atlas/z-anatomy/" target="_blank" rel="noreferrer">Open atlas in a new tab ↗</a></div><iframe title="Ana3D interactive human anatomy atlas" src="https://ana3d.app/en/atlas/z-anatomy/" loading="lazy" allow="fullscreen" referrerPolicy="strict-origin-when-cross-origin"/><div className="external-atlas-foot"><span>Model source: Z-Anatomy · CC BY-SA 4.0</span><span>If the embedded viewer does not load, use “Open atlas in a new tab”.</span></div></section> : <div className="anatomy-workspace">
    <aside className="anatomy-sidebar">
     <div className="anatomy-panel-title"><Layers3 size={16}/>Explore systems</div>
     <label className="anatomy-search"><Search size={14}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Find a structure"/></label>
@@ -90,6 +92,7 @@ export default function AnatomyExplorer() {
     </>}
    </aside>
   </div>
-  <div className="anatomy-footer"><span><i/> BUILT FOR MEDICAL LEARNING</span><span>Model geometry is schematic; anatomical detail is intentionally limited in this first iteration.</span></div>
+  </div>}
+  <div className="anatomy-footer"><span><i/> BUILT FOR MEDICAL LEARNING</span><span>{viewMode==="atlas"?"External model: Ana3D / Z-Anatomy · CC BY-SA 4.0; derived from BodyParts3D.":"Schematic preview only; not anatomically detailed."}</span></div>
  </section>;
 }
